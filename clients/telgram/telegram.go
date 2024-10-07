@@ -7,6 +7,8 @@ import (
 	"net/url"
 	"path"
 	"strconv"
+
+	"MyTelegramBot/lib/e"
 )
 
 type Client struct {
@@ -65,9 +67,7 @@ func (c *Client) SendMessage(chatID int, message string) error {
 }
 
 func (c *Client) doRequest(method string, query url.Values) (data []byte, err error) {
-	defer func() {}()
-
-	const errMsg = "can't do request"
+	defer func() { err = e.WrapIfErr("can't do request", err) }()
 
 	u := url.URL{
 		Scheme: c.host,
@@ -77,20 +77,20 @@ func (c *Client) doRequest(method string, query url.Values) (data []byte, err er
 
 	req, err := http.NewRequest(http.MethodGet, u.String(), nil)
 	if err != nil {
-		return nil, e.Wrap(errMsg, err)
+		return nil, err
 	}
 
 	req.URL.RawQuery = query.Encode()
 
 	resp, err := c.client.Do(req)
 	if err != nil {
-		return nil, e.Wrap(errMsg, err)
+		return nil, err
 	}
 	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, e.Wrap(errMsg, err)
+		return nil, err
 	}
 
 	return body, nil
