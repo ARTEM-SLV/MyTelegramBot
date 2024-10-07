@@ -1,14 +1,14 @@
 package telgram
 
 import (
+	"MyTelegramBot/pkg/clients/telgram/config"
+	"MyTelegramBot/pkg/lib/e"
 	"encoding/json"
 	"io"
 	"net/http"
 	"net/url"
 	"path"
 	"strconv"
-
-	"MyTelegramBot/lib/e"
 )
 
 type Client struct {
@@ -34,7 +34,7 @@ func newBasePath(token string) string {
 	return "bot" + token
 }
 
-func (c *Client) Updates(offset int, limit int) ([]Update, error) {
+func (c *Client) Updates(offset int, limit int) ([]config.Update, error) {
 	q := url.Values{}
 	q.Set("offset", strconv.Itoa(offset))
 	q.Set("limit", strconv.Itoa(limit))
@@ -44,7 +44,7 @@ func (c *Client) Updates(offset int, limit int) ([]Update, error) {
 		return nil, err
 	}
 
-	var res UpdatesResponse
+	var res config.UpdatesResponse
 
 	if err := json.Unmarshal(data, &res); err != nil {
 		return nil, err

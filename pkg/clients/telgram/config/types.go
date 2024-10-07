@@ -1,4 +1,4 @@
-package telgram
+package config
 
 type UpdatesResponse struct {
 	Ok     bool     `json:"ok"`
