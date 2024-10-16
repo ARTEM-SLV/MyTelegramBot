@@ -1,9 +1,10 @@
 package main
 
 import (
-	"MyTelegramBot/pkg/clients/telgram"
 	"flag"
 	"log"
+
+	"MyTelegramBot/pkg/clients/telgram"
 )
 
 const tgBotHost = "api.telegram.org"

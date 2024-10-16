@@ -1,4 +1,4 @@
-package config
+package events
 
 type Fetcher interface {
 	Fetch(limit int) ([]Event, error)
@@ -17,4 +17,6 @@ const (
 
 type Event struct {
 	Type Type
+	Text string
+	Meta any
 }

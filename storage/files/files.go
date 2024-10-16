@@ -1,8 +1,6 @@
 package files
 
 import (
-	"MyTelegramBot/pkg/lib/e"
-	"MyTelegramBot/storage"
 	"encoding/gob"
 	"errors"
 	"fmt"
@@ -10,6 +8,9 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+
+	"MyTelegramBot/pkg/lib/e"
+	"MyTelegramBot/storage"
 )
 
 type Storage struct {
